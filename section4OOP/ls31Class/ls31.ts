@@ -16,3 +16,7 @@ class Account {
     this.balance += amount;
   }
 }
+
+let account = new Account(1, "Mosh", 0);
+account.desposit(100);
+console.log(account instanceof Account);
