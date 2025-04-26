@@ -1,0 +1,222 @@
+--** SECTION1 **--
+
+- TypeScript is a programming language developed by Microsoft to address the shortcomings of JavaScript.
+
+- Every JS file is a valid TS file.
+
+- Features (Benefits) of TypeScript:
++Static Typing
++Code completion
++Refactoring
++Shorthand notations
+
+* There are two types of programming languages: Statically-Typed and Dynamically-Typed
++In Staticaly-typed languages (eg. C#, Java) we know the type of variables at compile time (while coding) 
++In Dynamically-typed languages (eg. JS, Python) the types of variables are deteremined at runtime and can change
+
+- In TS we explicitly declare the types of variables upon declaration
+
+- The drawback of TS is there always is a compile time because we have to pass it through a TS compiler
+
+- The process of turning TS code into JS code is called Transpilation
+
+- We have installed the TSCompiler using <npm i -g typescript> and can check the version by running <tsv -v)
+
+- To create a TS file, we run <tsc --init>
+
+- The target setting in the config file is the version of JS that the compiler is going to generate.
+
+- In the module section setting there is a rootDir setting which specifies the directory containing our source file
+
+- After compilation, our JS files will be stored in the dist folder, so we change outDir under Emit to ./dist
+
+- If we set removeComments to false, the compiler will remove all the comments
+
+- If the noEmitOnError setting is true, if there are mistakes in our TS fiel, the compiler won't generate any JS
+
+- If we run <tsc> in the terminal, the compiler will compiler our TS code
+
+- The sourcemap setting is a file that specifies how each line of our TS code maps to the generated JS code
+
+- For debugging, we navigate to the debugging panel, select create a launcfh.json file, then select Node.js
+
+- In the launch.json file, we add a new setting under program named preLaunchTask and set to "tsc: build - tsconfig.json"
+In this setting we tell vscode to compile our application using the tscompiler with this configuration
+
+--** SECTION2: Fundamentals **--
+
+- TS has some additional types compared with JS which makes it different than JS.
+
+- In TS, we don't always have to annotate our variables. The compiler can infer or detect the type of our variabels
+based on their values. For instance, when we initialize a variable to a number, the compiler knows that the variable
+is a number. If we don't initialize a variable, the compiler will assume its type as any.
+
+- When we define a variable with the type any, we can assign any value to it but it is against the whole idea of TS
+so it wouldn't be logical.
+
+- Assuming we have a JS project which uses undefined arguments in its functions, there are two things we can do, first, we can
+define its type of any in where its used as an argument to tell the compiler that we know whart we're doing. The second
+thing we can do is use control+p shortcut and go to tsconfig.json and set the noImplicitAny to false.
+
+- Tuple is another data type which is a fixed length array where each element has a particular type. We often use them
+while working with a pair of values.
+
+- We can access the methods for arrays using a dot after the name of the array, one of the methods which can be 
+troublesome is push(), so if we use it for a tuple, the compiler won't complain, Mosh suggests to only use tuples
+while defining two elements, because more than that would be hard to figure out.
+
+- Enum is another built-in data type which represents a list of related constants. (like C#)
+
+- We have an option in the tsconfig.json file which allows us to avoid using unused arguments, so we wouldn't put
+an argument in the parentheses which we're not going to use. In the typeChecking section we have an option called
+noUnusedParameters which we can set to true.
+
+- We have another option in tsconfig.json for detecting when we're not returning a proper value for a function, the 
+option is called noImplicitReturns, we can set it to true and it will warn us when needed.
+
+--** SECTION3: Advanced Types **--
+
+- We can use a type alias to define a custom type. 
+
+- With union (|) types, we can give a variable or a function parameter more than one type
+
+- Another way to use multiple types for a variable is an intersection (&)
+
+- Sometimes we want to limit the values we can assign to variables, here we use literals
+
+- TS is strict about using null and undefined values in our apps because they are on of the main sources of bugs.
+
+- If we hover over phone in the ls25 file, we see that it's either an HTML Element or null, in case it wasn't found.
+
+- We have learned about the any type earlier in the course and know that we should avoid it as much as possible.
+
+- If we define a function with an argument of type any, we can use whatever function we want and the compiler won't complain
+but in runtime the app might crash.
+
+- One thing we can do is change the type from any to unknown which will lead to the compiler complaining about using various
+functions, we can also do type narrowing to use functions suitable for each type.
+
+- In our tsconfig file, the type checking section, there is an option called allowUnreachableCode which we can turn off, now
+in the never type file, we see that the compiler won't let us write any code after a function that doesn't return
+
+- If we do not annotate the return type of an infinite loop function, the compiler will assume its void, and the code after
+the function will not generate any errors.
+
+--** SECTION4: Object-Oriented Programming **--
+
+- OOP is one of the most important programming paradigms.
+
+- An object is a unit that contains some data (also) and operations (behavior).
+
+- If we consider a person an object, name and email would be properties, talk and dance could be methods for person.
+
+- We could have individual objects for LoginForm, AuthService, EmailService, etc.
+
+- A class is a blueprint for creating objects.
+
+- If we want to represent the concept of a bank account, we need a class for that. We can have properties like id,
+owner, and balance; we can also have methods like deposit, and withdraw.
+
+- We use the Pascal naming convetion for classes (capitalize the first letter of EVERY word).
+
+- A constructor is a special method inside a class, that is used for initializing an object.
+
+- A constructor cannot have a return type annotation. 
+
+- If we type this in a construcor and type a dot after it, we can see all the properties defined earlier. 
+
+- After compilation when we look at the JS file, we see that we don't have any properties, we just have a constructor
+where the types of arguments are not mentioned, and we also have the deposit method.
+
+- In lesson 32, we will use the ls31 file and create an instance (object) of the defined class.
+
+- We have created an object called account which is an instance of Account and passed the required arguments. When we
+type account with dot after it, we can see the properties and methods for this object.
+
+- We can use this command to compile a ts project in a specific path:
+tsc -p D:\Projects\tsApps\section4OOP\ls31Class
+
+- If we print the account object itself in the terminal, we will see all of its properties.
+
+- If we print the typeof an object instance of a class, we get object.
+
+- We can use instanceof to check to see whether an object is an insatnce of a specific class.
+
+-ls33: In TS we have modifiers that we can apply to our properties and help us make more robust code. Let's say in our
+code, the id of a bank account should never change, right now it can change. For example we can set its value to 0 in
+the body of the deposit method. We can prefix this property with the readonly keyword and make it unchangeable. 
+
+- Now let's say we want to define an optional property, for instance a nickname. We can add a question mark after the
+property to make it optional. 
+
+-ls34: There are more access control modifiers that we can use. Assume we want to implement a transaction on deposit
+and withdraw, so we know how much money was transferred from who to where. We want to have an array for transactions 
+which is an array of transaction objects. So before we change the balance we want to record the transaction. If we
+want to modify the balance somewhere other than in the body of deposit, the transaction wouldn't be recorded and that
+is a problem, so we should do something to limit access.
+
+- In TypeScript we have 3 Access Modifiers. We have public, private and protected. When we define properties, they are
+public by default. But if we use the private keyword for a property, it would be accessible only within that class. We
+use this private keyword to make our code robust, not for storing private information. By convention, when we want to
+make a property private, we prefix it with an underline. 
+
+- We have made bance private, so when we want to display the balance to the user, we cannot access it because we are
+outside of the Account class. One solution is to define a getBalance method inside the class which return the balance,
+then we can call the method outside of the class for displaying the balance.
+
+- We can also define private methods, so let's assume we want to define a calculateTax method and access it internally.
+
+-ls35: In the constructor, we have 3 lines of code for initializing the three properties from the arguments. In the
+line where we define the constructor, we can prefix the parameters with a public keyword, it tells the compiler to 
+create a property with that name and initialize it in one go. This way we can get rid of the line at the top where 
+we defined id as a readonly property and also the code in the constructor where we initialize it. We can also add the
+readonly modifier for the parameter. These 3 keywords we used are parameter properties.
+
+- ls36: With the current approach, we are calling a function inside console.log to get the balance, but we want to use a 
+different approach. What we can do is rename the getBalance method to balance() and prefix it with a get keyword, so
+now it is a getter method. 
+
+- A getter is a method inside a class that we can use for getting the value of a property. Now with this syntax we can
+access the balance property just like before but we cannot set it. We can also implement a setter so that we can get a
+value and validate it. So we define a method with a set keyword as its prefix. Now using this syntax we can change the
+value of the property just like before but the entered value would not be directly reflected in the balance property,
+so anytime a value is entered this setter method is called and that would be the time for validation. 
+
+-ls37: In JS we can create an object and add properties to it dynamically, but this is not possible in TS, because TS
+is very strict aout the shape of objects. But there are situations where we need to add properties and this is where
+we use Index Signatures. 
+
+- Assume we want to write the application for ticketing concerts and we need to know who sits where. We are going to
+define a class called SeatAssignment, we must say which seat belongs to who and we don't want to define individual
+properties for each index for each row of seats. This where we use index signatures for creating properties 
+dynamically. For this purpose we use square brackets and type the name of the property and use string type for it, so
+that we can assign for instance A1 to it as a string. 
+
+- We want to store a string in this property, we can store a string, object, etc in it. For now we will store a string
+in it. So using index signatures we can create properties dynamically.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
