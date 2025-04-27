@@ -240,17 +240,70 @@ the two name properties to completely solve the error. We can also define method
 ones and the ones for the student class, such as names, studentId, and takeTest. The best practice is to define classes
 in individual files, not in the same file.
 
+-ls40: Sometimes we want to change something in the inherited code. For example we want to define a teacher class and
+in order to use the get fullName function, we want to add the word 'professor' as a prefix for their names. So in the
+teacher class we want to change the implementation of the fullName getter, this is called method overriding.
 
+- We don't need the Student object anymore so we'll comment it out and create teacher class. We don't want to add any
+properties to it so we don't need to define its own special constructor, it's going to inherit Person's constructor.
+Now we're going to create an instance of the Teacher class. Now we want to copy the fulName getter and prefix its name 
+with the word override to tell the compiler that we're overriding this method. 
 
+- In the body of the new fullName getter, we're going to write the word Professor and concat it with super.fullName so
+that we wouldn't have to write repetitive code. In this case we could achieve the same result without using the 
+override keyword, however, it would be disconnected from the one defined in the base class (Person). We can enable a
+compiler option to remind us to use the overrdie keyword. In the tsconfig.json file, type checking section, there is 
+an option called noImplicitOverrdie which we can use. 
 
+-ls41: One of the core principles of OOP is Polymorphism, which means many forms, which refers to a situation where an
+object can take many forms.
 
+- We have defined a function called printNames which takes an array of type Person as an argument. We want to call it
+and give it an array of Person objects. Now we know that every student adn every teacehr is a person. So we can pass a
+student object and a teacher object to this function. When we do so, we see that the way this application prints the
+names of these two people are different and this is polymorphism in action. 
 
+- If we define a class called Principal which inherits from Person, and override the fullName getter for it and instead
+of Professor, print Principlal, since a Principal is also a Person, we can add a Principal object to the array and it 
+is going to print the principal name according to the override method. Now we have enhanced our program without editing
+the code for the printNames function. This brings us to another principle of OOP which is called Open Closed Principle.
 
+- The Open Closed Principle says that our classes should be open for extension and closed for modification. So we should 
+be able to inherit them or exend them but we shouldn't be able to modify them. If we change something in a class we might 
+break something somewhere else. Practically, we cannot always adhere to this principle, because it can be costly and 
+also impossible. 
 
+-ls42: We have learned about public and private members in TS, now we want to learn more about the protected type. If
+we make a method private, we can access it anywhere within the class but we cannot access it from outside. We even
+wouldn't be able to acces it through an object created from that class. Protcted members are the same, we can access
+them anywhere within the class but now the outside. The difference is that protected members are inherited but pirvate
+members are not. 
 
+- Protected members shouldn't be used that often within our applications unless we know what we are doing, because it 
+can create coupling in our applications.
 
+-ls43: Suppose we want to build an application and let the user draw shapes like rectangles, triangles, and so on. We
+need to create a base class called Shape and we'll pass one parameter for its constructor called color of type string.
+We also need to define a method called render for rendering the shape. But we don't know how to render the shape since
+we need information about the shape in order to redner it. 
 
+- So we will create another class called Circle which extends Shape, we need to pass radius of type number as one of 
+the parameters, we also ned color to pass to the base class. Unlike radius, we didn't prefix color with the public
+keyword because already defined this property in the base class. In the body of the constructor we call the super
+method and pass color as its argument. 
 
+- Now we want to override the render function in the Circle class and we can type the algorithm for rendering a circle
+there. Similarly we could have other classes and implement the render method in them. There is a problem with the
+current implementation. If we create in instance of a Shape, we shouldn't be able to render it but we can do it. This
+is where we use abstract clases and methods. So if we want to prevent the creation of an instance of a class we should
+mark it as abstract. 
+
+- So we will prefix the Shape class with an abstract keyword which tells the compiler that this class is not ready to 
+be instanciated and another class has to extend it. Also abstract methods are methods that have no implementation. 
+So we also need to prefix the render method inside the Shape clas as abstract so it wouldn't have an implemenetation.
+When we mark a method as abstract, we should annotate its return type as void since the default return type is any.
+
+-ls44: 
 
 
 
