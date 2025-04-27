@@ -20,4 +20,29 @@ class Student extends Person {
   }
 }
 
-let student = new Student(1, "Teo", "Morningstar");
+// let student = new Student(1, "Teo", "Morningstar");
+
+class Teacher extends Person {
+  override get fullName() {
+    return "Professor " + super.fullName;
+  }
+}
+
+class Principal extends Person {
+  override get fullName() {
+    return "Principal " + super.fullName;
+  }
+}
+
+let teacher = new Teacher("John", "Smith");
+console.log(teacher.fullName);
+
+printNames([
+  new Student(1, "Teo", "Morningstar"),
+  new Teacher("Mosh", "Hamedani"),
+  new Principal("Mohammad", "Azadi"),
+]);
+
+function printNames(people: Person[]) {
+  for (let person of people) console.log(person.fullName);
+}
