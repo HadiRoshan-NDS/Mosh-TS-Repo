@@ -303,14 +303,32 @@ be instanciated and another class has to extend it. Also abstract methods are me
 So we also need to prefix the render method inside the Shape clas as abstract so it wouldn't have an implemenetation.
 When we mark a method as abstract, we should annotate its return type as void since the default return type is any.
 
--ls44: 
+-ls44: We use an Interface to define the shape of an object. For example if we want to define a calendar, there are 
+many calendars out there, we have Google Calendar, iCal, and so on. All these calendars have some commonalities which
+we can define in a base class. We can define a parameter called name and a method called addEvent for it. The 
+implementation of these methods depend on each one of these classes. For example how we record an event in Google Cal
+is certainly different than how we do the same thing in Outlook. So tecnically we should make these class and methods
+abstract. Abstract doesn't exist in JS, only in TS.
 
+- Using an interface we should be able to say that all of our calendars should have the name property and the methods.
+We will comment out the abstract class and define an interface. As we said there aren't interfaces in JS so it is only
+used by the TS compiler to do type checking. Since in this application the calendar isn't providing any logic that the
+subclasses can use, so in this case it is better to use an interface because it is more concise.
 
+- Interfaces cannot have method implementation, so whenever we have some logic in our code we should use abstract class
+instead of an interface. Inheritance also exists on interfaces, so we can define another interface which inherits from
+the Calendar interface. 
 
+- Now we need concrete implementation so we define a class called GoogleCalendar. When we say that this class extends 
+the Calendar interface, the compiler complains that it doesn't implement the interface's methods and properties. If we
+put the cursor on the class name, and press control and period, we wil see the option implement interface Calendar, and
+if we select it, vscode will implement the needed property and methods.
 
+- The editor implements the property like this: <name: string;> but we should manually replace it with a constructor 
+which has the property as its parameter. So now we have a class that implements the Calendar interface, later we can
+define a class like Outlook Calendar that implements the same interface. 
 
-
-
+- 
 
 
 
