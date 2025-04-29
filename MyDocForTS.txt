@@ -328,9 +328,39 @@ if we select it, vscode will implement the needed property and methods.
 which has the property as its parameter. So now we have a class that implements the Calendar interface, later we can
 define a class like Outlook Calendar that implements the same interface. 
 
+-ls46: To understand generics we need to know what problem they try to solve. Assume we want to represent a key-value pair.
+We define a class called keyValuePair and define a constructor with two parameters for it. Now we create an object of
+this class and assign the arguments to it. 
+
+- We have defined the type of key as a number. If wanted to define another object somewhere else in the application and
+assign a string to the key, we would encounter issues. We have these solutions. One solution is to set the type of the
+key to any. But with this approach we lose type safety and it's better not to use it. The other solution is to duplicate
+this class and call the copy StringKeyValuePair and create objects of this class when we want the key to be a string.
+The problem is our code is redundant and also we may want to assign an object as the key in our code.
+
+-ls47: To solve the problem we faced, we can type angled brackets <> and in between the brackets we can type one or more
+generic type parameters. We can name the parameter anything we want but T is conventional, in cpp we call such calsses
+template classes so here this generic is equivalent to that, and T is short for template. So we have defined a generic 
+type parameter and now we can change the type of key from number to T.
+
+- Now when we want to create an object of the KeyValuePair class, we can say what we want the type of the key to be. If
+we choose number, we can se the proper methods for a number when we access it and also we can see other proper methods
+for other types as well. 
+
+- If we want, we can define the value as a generic type as well. All we should do is include two parameters in the angled
+brackets and choose a name for them. If we don't supply the generic type arguments while creating an object, the compiler
+will infer their types based on what we pass as arguments. 
+
+-ls48: Just like generic classes, we can create generic functions as well. We have defined a function which creates an
+array and puts the arguments inside it. We want to make it so every type can be passed to it so we have to make it a
+generic function. So we define T as the generic type parameter and now the function can create an array of any type.
+
+- We can define functions inside classes, so we define a class and put the function inside of it, but we have to remove
+the function keyword anytime we define them inside of a class. With the current implementation we should create an object
+of our class and then call the array method on this object. However, we can also make the method static which means that
+it would belong to the class and then we wouldn't need an object to call it.
+
 - 
-
-
 
 
 
