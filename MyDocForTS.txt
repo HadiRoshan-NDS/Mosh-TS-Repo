@@ -360,7 +360,33 @@ the function keyword anytime we define them inside of a class. With the current 
 of our class and then call the array method on this object. However, we can also make the method static which means that
 it would belong to the class and then we wouldn't need an object to call it.
 
-- 
+-ls49: Let's assume we have a website and we have an end-point for getting the list of the users and another end-point 
+for getting the list of products. We'll define an interface (Result) for getting the result of one of these end-points. 
+In the interface we set the type of data to T so it can be either users or products. We should also have a property
+called error because we may not always get the proper result after trying to use an end-point.
+
+- Since the function fetch returns a generic result, we should add the generic type parameter for it. Now we're going to
+define two more interfaces, one for users and one for products. Now we want to see how we can use the fetch function
+along with the two interfaces. If we don't type a generic type argument and simply type fetch(), we get Result<unknown>
+so we have to so we have to explicitly decalre the generic type argument. 
+
+- If we assign the result of the endpoint to a result variable, we can see that data is a user object and by typing a 
+dot after data we can see all properties of the object. 
+
+-ls50: Sometimes we need to constrain generic type arguments. We'll define a simple generic function that takes a value 
+of type T and simply returns that value. Now we can call this function and give it a value of any type. But we may want
+to limit the type of objects that we can pass to the function. We must use exted and say what types can be passed to
+the function. Now when we call this function we can only pass arguments of these types to the it. 
+
+- We can also constrain by the shape of an object. For instance we can pass a shape object called name of type string. 
+Now we can only pass objects with this shape to the function. We can also constrain by an interface.
+
+- We can also constrain by class, we have defined a class called People which has a constructor, now we we can pass an
+instance of this class or any classes that derive from this class. 
+
+
+
+
 
 
 
