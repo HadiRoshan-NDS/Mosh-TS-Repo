@@ -384,6 +384,41 @@ Now we can only pass objects with this shape to the function. We can also constr
 - We can also constrain by class, we have defined a class called People which has a constructor, now we we can pass an
 instance of this class or any classes that derive from this class. 
 
+-ls51: Assume we're building an e-commerce application, we can have objects like categories, shopping cart, etc. We'll
+sart by defining an interface called Product and add two properties. We need a mechanism for storing these objects so 
+we will define a class called Store and we want to be able to store different kinds of objects, so we'll make the class
+generic. First we'll define a property called objects which is an array of type T in this class. It doesn't make sense
+to create an instance of this class and give it an empty array so we don't want to create a constructor. So we're going
+to initialize it by giving an empty array to the objects property. 
+
+- We'll also define a method which gets an obj of type T to push new objects. In our current implementation, we can 
+access the objects property from the outside but we shouldn't be able to because we can accidentally wipe out this array.
+We can create a store object which is a Store of Product. We need to make objects private so it can only be accessed 
+within the class. 
+
+- We can also define a searchable store class and we want to implement a method in it which finds objects. This method
+take a parameter called name of type string and returns T or undefined (in case cannot find the given object). Here if
+we type this.objects, this property is not available because it is private and they are not inhertied in child classes.
+To solve this problem we can make this property protected. 
+
+- When we try to access obj.name in the find method's body, the compiler says that name does not exist on type T. Here
+we can use constraints; We can say in the class' parameter, T extends an object with the shape that has a name property.
+The object doesn't have to be a Product, it can be anything as long as it has a name property.
+
+- In the last scenario, we assume there are certain opertaions that can only be performed on Products. In this scenario
+we don't have a generic type after the name of the class because we're dealing with a very specific store. So we have
+fixed the generic type parameter. In this class we define methods that ca be executed on products not other objects in
+this class. 
+
+-Key take-away: When extending a generic clas we have three options: we can fix the generic type parameter, we can 
+restrict it, we can apply a constraint, or we can simply pass it on to the child class. 
+
+
+
+
+
+
+
 
 
 
