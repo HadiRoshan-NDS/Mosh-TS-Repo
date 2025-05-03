@@ -413,6 +413,54 @@ this class.
 -Key take-away: When extending a generic clas we have three options: we can fix the generic type parameter, we can 
 restrict it, we can apply a constraint, or we can simply pass it on to the child class. 
 
+-ls52: We're continuing working on the example from the previous session; we have the Product interface and the Store 
+class. Now we want to implement a find method in this class. This method has two arguments and we should be able to
+find any product with the passed property and value. The property parameter is of type string and the value can be of 
+any type but we don't want to use this type for it, instead we're gonna use unknown. So if we pass the values to the
+method, we either get an instance of T or undefined if there is no object that satisfies this criteria. 
+
+- Now we want to see how we can use this implementation. So we create a store object and pass a product to it. We have 
+run the find method twice on the store object with different arguments. There is a problem with this implementation. 
+We can call this method and pass a non-existing property and when we run our program it is going to crash because there
+is no product by this name in the Product interface. This is where we use the keyof operator to solve this problem.
+
+- Eralier we learned that we use index signatures for dynamically adding properties to an object but in this case we're
+not dealing with dynamic properties, we're dealing with actual properties of an object. To explicitly tell this to the 
+compiler, we can change the type of property from string to keyof or property of T. So the property that we pass here 
+can only be one of the keys or properties of type T. So the keyof operator returns a union of properties of the given 
+type, and that is why we can only pass either a name or price when we're calling this method. So if we pass a 
+non-existing property, we get a compile-time error.
+ 
+-ls53: Sometimes we need to base a type on another type, this is called type mapping. For example here we have the 
+Product interface with two properties, what if somewhere else in our application we need a Product with read-only 
+properties. One option is to duplicate this interface and call the second one ReadOnlyProduct, and make each property
+read-only. This is repetitive and also whenever we add a new property to the Product interface, we have to remember to
+add that in the second interface as well. We can create a new type based on an existing type but in the new type we 
+want to add all these properties dynamically and make them read-only. Here we want to create a type alias so we should
+use the type keyword not interface, and we'll call it ReadOnlyProduct.
+
+- Here we should use index signature and keyof operator. Instead of hard-coding the property names here, we're going to
+use the index-signature syntax to dynamically add properties and using the keyof operator we're going to dynamically get
+the properties of Product interface. Property on line 7, in one iteration is going to be name and in the second iteration
+it is going to be price. We want to have the same types for these properties as we have used in the Product interface.
+So we type Product[Property]. The K here could be anything, it could be Property but we Chose K for key.
+
+- We have defined product of type ReadOnlyProduct. So when we access its properties, we cannot modify them since they
+are read-only properties. Here we have limited ourselves to Product, but we can use a generic type and replace Product 
+with a generic type parameter and then replace all Product instances with T. Now we can create a read-only Product or a
+read-only customer or any kind of object.
+
+- Using the same technique we can create a Product type with optional properties. One again we use the type keyword and
+call this Optional and get all the keys of T, to make the properties optional we append a question mark at the end and 
+for the type we use T[K]. Similarly we can deifne another type and make the properties nullable.
+
+- If we look up utility types in Goole, we'll find all these types the the typescriptlang website.
+
+-ls54: 
+
+
+
+
 
 
 
