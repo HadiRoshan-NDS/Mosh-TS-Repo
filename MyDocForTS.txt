@@ -456,23 +456,40 @@ for the type we use T[K]. Similarly we can deifne another type and make the prop
 
 - If we look up utility types in Goole, we'll find all these types the the typescriptlang website.
 
--ls54: 
+-ls55: Decorators allow us to change and enhance our classes. Decorators are attributes that we apply to our classes
+and their members to change how they behave. For example by applying the component decorator we can convert a class into
+a component for a web-application. The component decorator and many more are not built into TS, that's why frameworks 
+like Angular come with some built-in decorators.
 
+- Before we create any decorators, first we have to enable a compiler option because they are an experimental feature
+and their standards and implementation may change in the future. In the tsconfig file, in the Language and Environment 
+section we have experimentalDecorators which we need to turn on. 
 
+-ls56: a Decorator is simply a function that gets called by the JS Runtime. So first we'll define a function called 
+Component, if we want to apply it to a class, it should have a single parameter that represents our constructor function. 
+We can call it anything we want but what matters is the type, if the type is Function, the Runtime is going to assume
+that we're going to apply it on a class. 
 
+- In this function we have the chance to modify or enhance our class. We can add new properties or methods, change 
+existing methods, or even delete properties and methods. We first type a console log in its body and then access the
+prototype of the constructor where we can add properties or methods; then all instances of profile component or any
+classes that have the component decorator, will inherit those properties and methods. 
 
+- We define insertInDOM here so let's say every component should have a method for inseting it in the DOM, so when we
+add a component in the DOM, then the browser is going to show that component to the user.  
 
+- We could also take advantage of inheritance. So instead of defining the decorator, we could create a class called 
+Component, define insertInDOM, and then we could have our ProfileComponent extend the Component class. It is another 
+way to solve the same problem. 
 
+- When we run our program, we get this message printed in the console "Component decorator called". So even though we
+didn't create any instances of the Profile Component. So whether we have 0 or 10 instances, the decorator is called 
+once and it is our chance to modify our classes. 
 
+- If we take a look at the generated js file after compilation, we'll se a new function called __decorate which is 
+automatically generated for our component and gets called with our decorator and class as arguments.
 
-
-
-
-
-
-
-
-
+-ls57: 
 
 
 
