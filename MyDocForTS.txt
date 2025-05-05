@@ -489,7 +489,29 @@ once and it is our chance to modify our classes.
 - If we take a look at the generated js file after compilation, we'll se a new function called __decorate which is 
 automatically generated for our component and gets called with our decorator and class as arguments.
 
--ls57: 
+-ls57: Sometimes we need to pass decorators to our arguments. First we're going to comment out our previously 
+defined function and redefine it. We have set a parameter of type number for it and now we need a decorator 
+function and we use our code from before. We can improve our code using the arrow function syntax. Now our 
+function is acting as a factory for decorators.
+
+- We can also access the prototype and assign value to options. Now to make it more real-world, we will pass an 
+object with special properties instead of the valueparameter. We first define a type as ComponentOptions and then
+we change value to options and also change number to ComponentOptions.
+
+- Finally when using our decorator we pass an object with a selector which is the id of an element in the DOM.
+
+ls58: We can also apply multiple decorators to a class or its members. We can define another function called 
+pipe and add a property to it called pipe. Now we'll apply it after our component decorator. 
+
+- When we compile and run this code, our decorators are applied in the reverse order. The idea behind it comes
+from math, because each decorator is a function, first the pipe decorator is going to get called, with our
+ProfileComponent, so it's going to enhance our component and then the result is going to get passed to the 
+Component decorator.
+
+
+
+
+
 
 
 
