@@ -508,6 +508,47 @@ from math, because each decorator is a function, first the pipe decorator is goi
 ProfileComponent, so it's going to enhance our component and then the result is going to get passed to the 
 Component decorator.
 
+- ls59: Now we want to see how we can enhance our methods using decorators. We have defined a class which has a 
+method called say. Now we're going to define a decorator and apply it on this method. Now to apply it on method
+we need three parameters, so instead of a constructor function, we need three different types of parameters, the
+first parameter is the object that owns the target method, here we use the type any because the compiler expects
+it from us. The we have methodName of type string and descriptor of type PropertyDescriptor. Every property and 
+object has a descriptor object that describes that property. 
+
+- The descriptor object has a property called value, that references the target method, so we can set this to a 
+new function that would replace the original function or method. We don't always want to replace the original
+function with an entirely new one, so we can also modify it here, for example we may want to do something before
+or after the method. To get a refernce to the original method, we can access the value of descriptor. 
+
+- When we want to access 'original', we don't get intellisense so we have to tell the compiler that this is a 
+fucntion. We do that by typing as function after value. Now we can see that we can call this function and pass it
+the this keyword as its first argument and also a string which is going to be the message. 
+
+- Now if we create an instance of the Person class and call the say function on it and pass a string to the function,
+this string is going to be ignored and the one that we passed earlier (Blue Sky) is going to be used. If we want to
+use the arguments that we pass through the object, we can add message as the parameter while accessing the descriptor 
+and pass message while calling the original function. 
+
+- The compiler is showing us some errors so we have to modify the tsconfig file. In the type checking section we 
+have an option called noUnusedParameters which we have to turn off. We have a problem here. We can only apply this
+decorator on method or functions with this signature: methods that have one parameter of type string. What we can 
+do is replace string with any and rename message to something more generic like args, and using the rest operator 
+we allow this function to take varying number of parameters. Also while calling this function we use the spread
+operator so we spread all these arguments and pass them one by one to the original function. 
+
+- When redefining a function, we should always use the functon expression not the arrow function.
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
