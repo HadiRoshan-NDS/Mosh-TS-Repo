@@ -8,24 +8,27 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-function Log(target, methodName, descriptor) {
-    const original = descriptor.value;
-    descriptor.value = function (message) {
-        console.log("Before");
-        original.call(this, message);
-        console.log("After");
+function Capitalize(target, methodName, descriptor) {
+    const original = descriptor.get;
+    descriptor.get = function () {
+        const result = original === null || original === void 0 ? void 0 : original.call(this);
+        return typeof result === "string" ? result.toUpperCase() : result;
     };
 }
 class Person {
-    say(message) {
-        console.log("Person says " + message);
+    constructor(firstName, lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+    get fullName() {
+        // return 0;
+        return `${this.firstName} ${this.lastName}`;
     }
 }
 __decorate([
-    Log,
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
-], Person.prototype, "say", null);
-let person = new Person();
-person.say("Hello");
+    Capitalize,
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [])
+], Person.prototype, "fullName", null);
+let person = new Person("teo", "morningstar");
+console.log(person.fullName);

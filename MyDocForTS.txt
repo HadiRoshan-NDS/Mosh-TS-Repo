@@ -538,8 +538,27 @@ operator so we spread all these arguments and pass them one by one to the origin
 
 - When redefining a function, we should always use the functon expression not the arrow function.
 
+-ls60: Now we want to see how we can create a decorator to apply on accessors, meaning getters and setters. We'll 
+define a class called Person with a constructor with two parameters. In the class we define a getter which returns 
+a template string. Now we'll define a decorator for capitalizing the return value of this getter. 
 
+- In this function, first we need to get a reference to the original method, previously we used descriptor.value
+but it doesn't work for getters and setters, just the regular methods; so here we have to use the get property.
+Getters don't have any arguments so we don't need them when we redefine the method. The original function can be 
+undefined that's why we have to use optional chaining (question mark) while referencing the original method.
+But in this case we know that original is not going to be undefined because we are going to apply this decorator 
+on a getter. So instead of a question mark, we'll use an exclamation mark.
 
+- We use const for storing result because we don't want to accidentally change it. When we hover over result we 
+see that its type is any, so we have to first check if it is a string, then we return the uppercase string. 
+
+** For the decorators to work correctly, you need to set these two options to true in tsconfig: 
+"experimentalDecorators": true,  // Required for decorators
+"emitDecoratorMetadata": true    // Optional, but useful for advanced cases **
+
+- If we want to return 0 or null, our code still works correctly.
+
+-ls61: 
 
 
 
