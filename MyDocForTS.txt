@@ -558,10 +558,46 @@ see that its type is any, so we have to first check if it is a string, then we r
 
 - If we want to return 0 or null, our code still works correctly.
 
--ls61: 
+-ls61: In the constructor of our class, we cannot use the public keyword for password as the parameter, because we
+are going to apply our decorator to the property itself. With this decorator we want to make sure that the 
+passwords are at least 4 characters long. 
 
+- This decorator is similar to a method decorator but it doesn't have a propertyDescriptor, instead we're going to
+use the property descriptor from the target property, so we define a constant of type propertyDescriptor for it.
+In this object if we press ctrl+space, we see all the methods for descriptor objects. We'll define a setter here
+which gets a new value for the password and we compare its length with the function's argument, and if it's 
+shorter, we'll throw an error.
 
+-ls62: Parameter decoators aren't used unless you are writing a famework for others. So we skip the doc for it. 
 
+--** SECTION7: Modules **--
+
+-ls64: We have the code for the classes Circle and Square in the shapes files. These classes are currently only
+accessible in the shapes file. We'll export the Circle class so that we can use it in the index file. While 
+importing the class in the index file, we can use an alternative name for it in this file which we can specify in
+the curly braces. Now we'll also export an inmport Square.
+
+- When we define an interface in a file, we can move it to a new file with the help of vscode, all we have to do 
+is move the cursor to the interface name and press ctrl+period and then select move to a new file.
+
+-ls65: Starting with ES2015(ES6), modules have become natively supported so we have the syntax for import and 
+export. Other formats were used before that date but we don't realy need to know them. We can modify the module 
+format in the ts config file if we want to use older formats and the compiled code is going to be different.
+
+-ls66: Sometimes we just want to export a single thing from a module, in those cases it's better to use default- 
+export. We'll create a storage.ts file and define a Store class in it for permanently storing objects. In this
+module we'll also define two other classes which have to do with Store but we wouldn't want to export them, so
+other modules don't need to worry about them. The reason for this is other modules may become dependent on them
+while we may change them in the future which will cause problems.
+
+- What we can do is just export the Store class and import it in some other module. But in these cases, the better
+thing to do is type export default; and while importing it, we don't need the braces anymore.
+
+- Assume in the same storage file we define an enum named Format and we need that in some other module, in that 
+case we can export it without the default keyword and then import it in braces in the other module. 
+
+-ls67: Sometimes we need a few objects from a module, so importing them one by one can be a bit of a hassle. In 
+these cases we can use the wildcard instead of naming them one by one.
 
 
 
