@@ -599,6 +599,32 @@ case we can export it without the default keyword and then import it in braces i
 -ls67: Sometimes we need a few objects from a module, so importing them one by one can be a bit of a hassle. In 
 these cases we can use the wildcard instead of naming them one by one.
 
+-ls68: With re-exporting, we can have a single module combine the exports of different modules. Looking at the 
+shapes module, we have defined two classes in the same module. As these classes become larger, this module
+becomes harder to maintain. In that case it's better to split it into multiple modules.
+
+- Now we put the cursor on each class and move them into an individual new files (using ctrl+dot). Now we go 
+to the index file and import these two modules. There is nothing wrong with having two import statements for
+these two modules, but if we had many more, it wouldn't be logical. Here we can use re-exporting and combine
+all these modules into a single module and then we'll only import that single module.
+
+- We go back to the shapes folder and rename shapes.ts to index.ts. Now in this file we import the two modules
+and then export them, so now in the other files, we can import this index.ts and use the two modules. We can
+even avoid naming the index file and just specify the shapes folder; but here we may get an error, in that
+case we go to the ts.config file and in the modules section we set the moduleResolution to node. 
+
+--** SECTION8: Integration with JavaScript**--
+
+-ls70: So far we've been coding purely in TypeScript, but it's not always possible because we might have a 
+JavaScript project and decide to introduce TS later on or we just want to work with some existing JS code.
+In the newly generated ta.js file we export a function which returns income * 0.3. So here we have a JS file
+and cannot use any TS features, so we cannot annotate the parameter.
+
+- Now we import this function into the index.ts file. We may see an error here, to solve it we got to the 
+ts.config file, in the JS support section we should turn on the allowJS option. 
+
+-ls71: While using JS, we don't get type checking, which means that wqe are allowed to run our function 
+without passing arguments to it, and we won't know about the issue until run-time. 
 
 
 
