@@ -623,8 +623,71 @@ and cannot use any TS features, so we cannot annotate the parameter.
 - Now we import this function into the index.ts file. We may see an error here, to solve it we got to the 
 ts.config file, in the JS support section we should turn on the allowJS option. 
 
--ls71: While using JS, we don't get type checking, which means that wqe are allowed to run our function 
-without passing arguments to it, and we won't know about the issue until run-time. 
+-ls71: While using JS, we don't get type checking, which means that we are allowed to run our function 
+without passing arguments to it, and we won't know about the issue until run-time. To solve this issue 
+we go to the tsconfig file, in the JS Support section there is the checkJs option which we can turn on
+and get some type checking. After doing this, when we compile our code we get the error which says that
+the parameter implicitly has an any type. 
+
+- The reason for this is after enabling the check option, we should specify the any type if we want to 
+use it. But assuming we get a lot of errors in a file and want to tell the TS compiler to be silent, we
+got to the JS file and on the top we add a special comment that says < // @ts-nocheck > now if we compile
+our program again we won't get any errors.
+
+- We might now get an error after not passing a parameter to the function, the reason for that is if we 
+don't supply an argument, undefined will be passed to the function. Since the type of income parameter
+is any, it can even receive undefined.
+
+-ls72: One way to describe type information for our js code is using js doc which is a special comment
+we can add to our code. First we remove the < // @ts-nocheck > line and add /** */ and vscode suggests
+the code we need to add for the JSDoc Comment. In the comment we have an income parameter for our file
+and the star is its type, so we explicitly change its type to number.
+
+- Similarly on the return line we can specify the type of the return value. SDo using JSDoc we can
+provide typing information to the TS compiler. But we could also explain our code, for instance we
+can provide a description for this function on the first two line of the JSDoc comment in this file
+and see the refelction of them in the ts file.
+
+-ls73: There is another way for specifying type information which is using declaration or a type 
+definition file. This is useful if we don't want to modify the JS code. The comment that we have
+added to the JS file before and clear now are as below:
+/**
+ * Calculates income tax
+ * @param {number} income - Net salary after expenses
+ * @returns {number}
+ */
+
+- We'll add a new file in the src directory and name it tax.d.ts, the name of the file should 
+be the same as the js file with the d.ts extension. In this file we specify all the features 
+for the target module (which is tax.js). For the functions, we declare them here and their
+implementation is specified in the target module. In this approach we need to remember that
+we should describe all of the features in the target module. 
+
+- Assuming we define and export another function in the js file and forget to declare it in the
+type definition file, it will be invisible for the TypeScript compiler and we won't be able to
+import it in the index file (which has the ts extension).
+
+-ls74: We want to discuss using third-party JS libraries in TS. For instance we could install
+npm lodash. Now we comment out everything in the index.ts file and import everything from lodash.
+Now we get an error because it is a pure JS library and it doesn't have JSDoc comment or declaration
+file, so here we use a GitHub repository called DefinitelyTyped. Here we can find declaration files 
+for all of the poular libraries. 
+
+- To use this repository, we use the command npm i @types/lodash, we want to install it as a 
+development dependency and we want to deploy it with our application. This is purely for  build-
+time and compile-time. To specify this, we add either -save-dev or -D to the command. 
+
+- Now that we have done this we can access for example the clone function from _ and we see that
+it gets a parameter called value, and it also returns unknown. Now that ts is popular, many JS libraries
+come with their declaration files so we don't need to install their declaration files separately using
+definitely typed declarations. 
+
+- For example we want to install chalk using npm. Now if we hover to its folder we see that it comes
+with its own delcaration file along with the JS and TS files. 
+
+
+
+
 
 
 

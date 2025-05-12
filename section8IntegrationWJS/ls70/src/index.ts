@@ -1,4 +1,6 @@
-import { calculateTax } from "./tax.js";
+import * as _ from "lodash";
 
-let tax = calculateTax(1000);
-console.log(tax);
+// import { calculateTax } from "./tax.js";
+
+// let tax = calculateTax(1000);
+// console.log(tax);
